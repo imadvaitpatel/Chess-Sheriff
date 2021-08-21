@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import{ MasterComponent } from './components/master-component/master-component';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MasterComponent />
   </React.StrictMode>,
   document.getElementById('root')
 );
