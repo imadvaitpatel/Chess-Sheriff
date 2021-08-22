@@ -1,10 +1,10 @@
 export enum SearchDateRange {
-  ONE_MONTH = '1 month', 
-  THREE_MONTHS = '3 months',
-  SIX_MONTHS = '6 months',
-  ONE_YEAR = '1 year',
-  THREE_YEARS = '3 years',
-  FIVE_YEARS = '5 years'
+  ONE_MONTH = 'Past 1 month', 
+  THREE_MONTHS = 'Past 3 months',
+  SIX_MONTHS = 'Past 6 months',
+  ONE_YEAR = 'Past 1 year',
+  THREE_YEARS = 'Past 3 years',
+  FIVE_YEARS = 'Past 5 years'
 };
 
 export function dateRangeToMonths(dateRange: SearchDateRange): number {
