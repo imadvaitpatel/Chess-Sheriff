@@ -2,7 +2,7 @@ import React from 'react';
 import '../../css/master-component.css';
 import { SearchBarContainer } from '../search-bar/search-bar-container';
 import { dateToArchiveFormatString, getStartDate, SearchDateRange } from '../../util/date-util';
-import { getGamesFromArchives, getPlayerArchives } from '../../util/chesscom-util';
+import { getArchivesAfterDate, getArchivesUrl } from '../../util/chesscom-util';
 
 type MasterComponentState = {
   isCreatingReport: boolean;
@@ -51,7 +51,7 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
   private async handleSearchClick() {
     // make api calls and backend stuff
 
-    const response = await fetch(getPlayerArchives(this.state.currentUsername));
+    const response = await fetch(getArchivesUrl(this.state.currentUsername));
     const data = await response.json();
 
     if (response.status === 404) {
@@ -66,8 +66,8 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
       // });
       const startDate = dateToArchiveFormatString(getStartDate(this.state.selectedDateRange));
       console.log(startDate);
-      getGamesFromArchives(data.archives, startDate);
-
+      const archives = getArchivesAfterDate(data.archives, startDate);
+      console.log(archives);
 
     }
     
