@@ -32,7 +32,8 @@ export const getStartDate = (dateRange: SearchDateRange): Date => {
 
 export const convertDateToArchiveFormatString = (date: Date): string => {
   const year = date.getFullYear();
-  let month = date.getMonth();
+  // since January is '0' in JavaScript...
+  let month = date.getMonth() + 1;
 
   return (month < 10) ? `${year}/0${month}` : `${year}/${month}`;
 }

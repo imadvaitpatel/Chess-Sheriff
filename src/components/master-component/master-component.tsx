@@ -78,11 +78,9 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
   }
 
   private updateDateRange(newDateRange: SearchDateRange) {
-    // parameter not being passed from data dropdown
-    console.log(newDateRange);
     this.setState({
       selectedDateRange: newDateRange
-    })
+    });
   }
 }
 
