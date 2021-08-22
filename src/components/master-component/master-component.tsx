@@ -68,22 +68,39 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
       console.log(startDate);
       const archives = getArchivesAfterDate(data.archives, startDate);
       console.log(archives);
+      this.getGamesFromArchives(archives);
 
     }
     
   }
 
-  private updateUsername(newUsername: string) {
+  private updateUsername(newUsername: string): void {
     this.setState({
       currentUsername: newUsername,
       showUserErrorMessage: false
     });
   }
 
-  private updateDateRange(newDateRange: SearchDateRange) {
+  private updateDateRange(newDateRange: SearchDateRange): void {
     this.setState({
       selectedDateRange: newDateRange
     });
+  }
+
+  private getGamesFromArchives = async (archives: string[]) => {
+    const games: string[] = [];
+
+    for (let i = 0; i < archives.length; i++) {
+      const response = await fetch(archives[i]);
+      const data = await response.json();
+      console.log(data);
+      
+      for (const game in data.games) {
+        games.push(data.games[game]);
+      }
+    }
+    console.log(games);
+    return games;
   }
 }
 
