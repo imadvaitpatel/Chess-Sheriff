@@ -49,8 +49,6 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
   }
 
   private async handleSearchClick() {
-    // make api calls and backend stuff
-
     const response = await fetch(getArchivesUrl(this.state.currentUsername));
     const data = await response.json();
 
