@@ -1,3 +1,5 @@
+import { isNumeric } from "./string-util";
+
 export enum SearchDateRange {
   ONE_MONTH = 'Past 1 month', 
   THREE_MONTHS = 'Past 3 months',
@@ -30,11 +32,37 @@ export const getStartDate = (dateRange: SearchDateRange): Date => {
   return date;
 }
 
-export const convertDateToArchiveFormatString = (date: Date): string => {
+// All date strings use format YYYY/MM for easy comparison with archive dates
+// January is 01 (not 00)
+
+export const dateToArchiveFormatString = (date: Date): string => {
   const year = date.getFullYear();
   // since January is '0' in JavaScript...
   let month = date.getMonth() + 1;
 
   return (month < 10) ? `${year}/0${month}` : `${year}/${month}`;
+}
+
+export const compareArchiveDates = (dateOne: string, dateTwo: string): number => {
+  if (dateOne.length !== dateTwo.length) { 
+    return (dateOne.length > dateTwo.length ? 1 : -1);
+   }
+  for (let i = 0; i < dateOne.length; i++) {
+    if (dateOne[i] === dateTwo[i]) {
+      continue;
+    }
+    else if (isNumeric(dateOne[i]) && isNumeric(dateTwo[i])) {
+      const numOne: number = Number(dateOne[i]);
+      const numTwo: number = Number(dateTwo[i]);
+
+      if (numOne < numTwo) {
+        return -1;
+      }
+      else if (numOne > numTwo) {
+        return 1;
+      }
+    }
+  }
+  return 0;
 }
 

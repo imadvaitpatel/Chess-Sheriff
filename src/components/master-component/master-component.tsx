@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../css/master-component.css';
 import { SearchBarContainer } from '../search-bar/search-bar-container';
-import { convertDateToArchiveFormatString, getStartDate, SearchDateRange } from '../../util/date-util';
-import { getPlayerArchives } from '../../util/chesscom-util';
+import { dateToArchiveFormatString, getStartDate, SearchDateRange } from '../../util/date-util';
+import { getGamesFromArchives, getPlayerArchives } from '../../util/chesscom-util';
 
 type MasterComponentState = {
   isCreatingReport: boolean;
@@ -64,8 +64,11 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
       //  this.setState({
       //   isCreatingReport: true
       // });
-      const startDate = convertDateToArchiveFormatString(getStartDate(this.state.selectedDateRange));
+      const startDate = dateToArchiveFormatString(getStartDate(this.state.selectedDateRange));
       console.log(startDate);
+      getGamesFromArchives(data.archives, startDate);
+
+
     }
     
   }
