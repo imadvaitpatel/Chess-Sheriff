@@ -66,8 +66,10 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
       console.log(startDate);
       const archives = getArchivesAfterDate(data.archives, startDate);
       console.log(archives);
-      this.getGamesFromArchives(archives);
-
+      // fix cors error next!!!!!!!!
+      const games = await this.getGamesFromArchives(archives);
+      
+      await fetch(`http://localhost:8080/stats/2`);
     }
     
   }

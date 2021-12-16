@@ -1,0 +1,6 @@
+1) User will enter a username from chess.com and select a date range. Using chess.com API, the user's games 
+within the date range. API response also gives us timestamp info for each game.
+ 
+2) Then, for each game we visit chess.com/analysis/game/live/{game id} and use web scraping to get the CAPS score.
+
+3) Use timestamp and CAPS score data to display a report to the user and the likelihood that this user is a dumb cheater.
