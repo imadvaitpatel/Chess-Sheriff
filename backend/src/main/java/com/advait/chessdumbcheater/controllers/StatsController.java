@@ -16,9 +16,9 @@ public class StatsController {
     private final static GameRetrieverService gameRetrieverService = new GameRetrieverService();
 
     @GetMapping("/stats/{playerName}")
-    public ResponseEntity<List<String>> getPlayerStats(@PathVariable String playerName, @RequestParam(required = false) String dateRange) {
+    public ResponseEntity<List<String>> getPlayerStats(@PathVariable String playerName, @RequestParam("pastMonths") int pastMonths) {
         System.out.println("endpoint works");
-        System.out.println(gameRetrieverService.getPlayerArchives(playerName));
+        System.out.println(gameRetrieverService.getPlayerArchives(playerName, pastMonths));
         return ResponseEntity.ok(Arrays.asList("hi"));
     }
 }

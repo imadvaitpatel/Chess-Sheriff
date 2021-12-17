@@ -1,13 +1,12 @@
 import React from 'react';
 import '../../css/search-bar-container.css';
-import { SearchDateRange } from '../../util/date-util';
 import { DateDropdown } from '../date-dropdown/date-dropdown';
 import { SearchBar } from './search-bar';
 import { SearchButton } from './search-button';
 
 type SearchBarContainerProps = {
   onSearchBarUpdate: (value: string) => void;
-  onDateDropdownUpdate: (value: SearchDateRange) => void;
+  onDateDropdownUpdate: (value: string) => void;
   isCreatingReport: boolean;
   searchValue: string;
   handleSearchClick: () => void;

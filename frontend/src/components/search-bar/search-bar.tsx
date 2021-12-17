@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../css/search-bar.css';
-import { CHESSCOM_MAX_CHARACTERS } from '../../util/chesscom-util';
+
+const SEARCHBAR_MAX_CHARACTERS = 20;
 
 type SearchBarProps = {
   value: string
@@ -10,6 +11,6 @@ type SearchBarProps = {
 export const SearchBar = (props: SearchBarProps) => {
   const { value, onUpdate } = props;
   return (
-    <input className='search-bar' value={value} onChange={onUpdate} placeholder='Enter username' maxLength={CHESSCOM_MAX_CHARACTERS}/>
+    <input className='search-bar' value={value} onChange={onUpdate} placeholder='Enter username' maxLength={SEARCHBAR_MAX_CHARACTERS}/>
   ); 
 }

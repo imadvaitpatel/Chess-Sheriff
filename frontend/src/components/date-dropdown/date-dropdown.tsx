@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../css/date-dropdown.css';
-import { SearchDateRange } from '../../util/date-util';
 
 type DateDropdownProps = {
   onChange: (e: any) => void;
@@ -17,10 +16,10 @@ export const DateDropdown = (props: DateDropdownProps) => {;
 
 const getDateOptions = (): [JSX.Element] => {
   let options: any = [];
-  for(const dateRange of Object.values(SearchDateRange)) {
+  for(const numMonths of [1, 2, 3, 6, 9, 12]) {
     options.push(
-      <option>
-        {dateRange}
+      <option value ={numMonths} key={numMonths}>
+        Past {numMonths} {numMonths === 1 ? 'month' : 'months'} 
       </option>
     );
   }

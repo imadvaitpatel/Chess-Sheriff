@@ -1,13 +1,11 @@
 import React from 'react';
 import '../../css/master-component.css';
 import { SearchBarContainer } from '../search-bar/search-bar-container';
-import { dateToArchiveFormatString, getStartDate, SearchDateRange } from '../../util/date-util';
-import { getArchivesAfterDate, getArchivesUrl } from '../../util/chesscom-util';
 
 type MasterComponentState = {
   isCreatingReport: boolean;
   currentUsername: string;
-  selectedDateRange: SearchDateRange;
+  selectedPastNumMonths: number;
   showUserErrorMessage: boolean;
 }
 
@@ -18,7 +16,7 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
     this.state = {
       isCreatingReport: false,
       currentUsername: '',
-      selectedDateRange: SearchDateRange.ONE_MONTH,
+      selectedPastNumMonths: 1,
       showUserErrorMessage: false
     }
     this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -49,7 +47,7 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
   }
 
   private async handleSearchClick() {
-    const response = await fetch(`http://localhost:8080/stats/${this.state.currentUsername}?dateRange=${this.state.selectedDateRange}`);
+    const response = await fetch(`http://localhost:8080/stats/${this.state.currentUsername}?pastMonths=${this.state.selectedPastNumMonths}`);
     const data = await response.json();
     // rework after moving some more logic to backend later
     // fix error code problem later
@@ -63,26 +61,10 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
     });
   }
 
-  private updateDateRange(newDateRange: SearchDateRange): void {
+  private updateDateRange(newDateRange: string): void {
     this.setState({
-      selectedDateRange: newDateRange
+      selectedPastNumMonths: Number(newDateRange)
     });
-  }
-
-  private getGamesFromArchives = async (archives: string[]) => {
-    const games: string[] = [];
-
-    for (let i = 0; i < archives.length; i++) {
-      const response = await fetch(archives[i]);
-      const data = await response.json();
-      console.log(data);
-      
-      for (const game in data.games) {
-        games.push(data.games[game]);
-      }
-    }
-    console.log(games);
-    return games;
   }
 }
 
