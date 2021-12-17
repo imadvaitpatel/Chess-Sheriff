@@ -49,28 +49,10 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
   }
 
   private async handleSearchClick() {
-    const response = await fetch(getArchivesUrl(this.state.currentUsername));
+    const response = await fetch(`http://localhost:8080/stats/${this.state.currentUsername}?dateRange=${this.state.selectedDateRange}`);
     const data = await response.json();
-
-    if (response.status === 404) {
-      this.setState({
-        showUserErrorMessage: true
-      });
-    }
-    else {
-      console.log(data);
-      //  this.setState({
-      //   isCreatingReport: true
-      // });
-      const startDate = dateToArchiveFormatString(getStartDate(this.state.selectedDateRange));
-      console.log(startDate);
-      const archives = getArchivesAfterDate(data.archives, startDate);
-      console.log(archives);
-      // fix cors error next!!!!!!!!
-      const games = await this.getGamesFromArchives(archives);
-      
-      await fetch(`http://localhost:8080/stats/2`);
-    }
+    // rework after moving some more logic to backend later
+    // fix error code problem later
     
   }
 
