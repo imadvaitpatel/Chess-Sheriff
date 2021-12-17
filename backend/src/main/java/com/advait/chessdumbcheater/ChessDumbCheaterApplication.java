@@ -10,4 +10,5 @@ public class ChessDumbCheaterApplication {
         SpringApplication.run(ChessDumbCheaterApplication.class, args);
     }
 
+
 }
