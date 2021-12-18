@@ -3,7 +3,8 @@ package com.advait.chessdumbcheater.services;
 import com.advait.chessdumbcheater.models.ArchivesDTO;
 import com.advait.chessdumbcheater.models.Game;
 import com.advait.chessdumbcheater.models.GamesDTO;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -13,25 +14,33 @@ import java.util.stream.Collectors;
 
 public class GameRetrieverService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
-
-    private String getChessComArchiveUrl(String playerName) {
-        return "https://api.chess.com/pub/player/" + playerName + "/games/archives";
-    }
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
     public List<Game> getPlayerGames(String playername, int pastMonths) {
         ArchivesDTO archivesDTO = getPlayerArchives(playername, pastMonths);
         List<Game> games = new ArrayList<>();
         for (String archiveURL : archivesDTO.getArchives()) {
-            GamesDTO gamesObject = restTemplate.getForObject(archiveURL, GamesDTO.class);
+            GamesDTO gamesObject = this.webClientBuilder
+                    .build()
+                    .get()
+                    .uri(archiveURL)
+                    .retrieve()
+                    .bodyToMono(GamesDTO.class)
+                    .block();
             games.addAll(gamesObject.getGames());
         }
         return games;
     }
 
     private ArchivesDTO getPlayerArchives(String playerName, int pastMonths) {
-        String url = getChessComArchiveUrl(playerName);
-        ArchivesDTO playerArchivesDTO = restTemplate.getForObject(url, ArchivesDTO.class);
+        ArchivesDTO playerArchivesDTO = this.webClientBuilder
+                .build()
+                .get()
+                .uri("/pub/player/" + playerName + "/games/archives")
+                .retrieve()
+                .bodyToMono(ArchivesDTO.class)
+                .block();
         playerArchivesDTO.setArchives(filterArchivesInPastTimePeriod(playerArchivesDTO.getArchives(), pastMonths));
         System.out.println(playerArchivesDTO);
         return playerArchivesDTO;
