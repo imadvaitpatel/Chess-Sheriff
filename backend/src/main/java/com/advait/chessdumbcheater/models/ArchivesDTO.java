@@ -16,13 +16,4 @@ public class ArchivesDTO {
     public List<String> getArchives() {
         return archives;
     }
-
-    public String toString() {
-        String output = "-- Archives --";
-        for (String archive : archives) {
-            output += "\n%f".format(archive);
-        }
-
-        return output;
-    }
 }

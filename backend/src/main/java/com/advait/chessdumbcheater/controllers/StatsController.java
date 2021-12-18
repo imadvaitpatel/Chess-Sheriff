@@ -2,6 +2,7 @@ package com.advait.chessdumbcheater.controllers;
 
 import com.advait.chessdumbcheater.models.Game;
 import com.advait.chessdumbcheater.services.GameRetrieverService;
+import com.advait.chessdumbcheater.services.GameStatisticService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class StatsController {
 
     private final static GameRetrieverService gameRetrieverService = new GameRetrieverService();
+    private final static GameStatisticService gameStatisticService = new GameStatisticService();
 
     @GetMapping("/stats/{playerName}")
     public ResponseEntity<List<String>> getPlayerStats(@PathVariable String playerName, @RequestParam("pastMonths") int pastMonths) {
