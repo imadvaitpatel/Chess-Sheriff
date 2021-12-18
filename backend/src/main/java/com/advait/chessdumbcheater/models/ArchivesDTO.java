@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Archives {
+public class ArchivesDTO {
 
     private List<String> archives;
-
-    public Archives() {}
 
     public void setArchives(List<String> archives) {
         this.archives = archives;
