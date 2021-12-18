@@ -32,13 +32,13 @@ public class Game {
         this.url = url;
     }
 
-    public int getId() {
+    public long getId() {
         if (this.url == null) {
             return -1;
         }
         else {
             String[] tokens = this.url.split("/");
-            return Integer.parseInt(tokens[tokens.length - 1]);
+            return Long.parseLong(tokens[tokens.length - 1]);
         }
     }
 }
