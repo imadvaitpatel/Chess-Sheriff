@@ -26,9 +26,7 @@ public class StatsController {
     @GetMapping("/stats/{playerName}")
     public ResponseEntity<List<String>> getPlayerStats(@PathVariable String playerName, @RequestParam("pastMonths") int pastMonths) {
         List<Game> games =  gameRetrieverService.getPlayerGames(playerName, pastMonths);
-        for (Game game : games) {
-            gameAnalysisService.getCapsScore(game);
-        }
+        gameAnalysisService.analyzeGames(playerName, games);
 
         return ResponseEntity.ok(Arrays.asList("hi"));
     }

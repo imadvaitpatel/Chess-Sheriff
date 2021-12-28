@@ -71,4 +71,17 @@ public class Game {
             return Long.parseLong(tokens[tokens.length - 1]);
         }
     }
+
+    public Integer getBaseTimeInSeconds() {
+        String[] timeControl = this.time_control.split("\\+");
+        return Integer.parseInt(timeControl[0]);
+    }
+
+    public Integer getIncrement() {
+        String[] timeControl = this.time_control.split("\\+");
+        if (timeControl.length == 1) {
+            return 0;
+        }
+        return Integer.parseInt(timeControl[1]);
+    }
 }
