@@ -3,18 +3,50 @@ package com.advait.chessdumbcheater.services;
 import com.advait.chessdumbcheater.models.Game;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class GameAnalysisService {
 
+    public TreeMap<Double, Integer> getMoveTimeRangeFromAverageMap() {
+        // This map keeps track of number of moves within a range of seconds from the average move time of a game
+        // Keys are mapped to the upper bound of the range
+        TreeMap<Double, Integer> moveTimeRangeFromAverage = new TreeMap<>();
+
+        moveTimeRangeFromAverage.put(0.5, 0);
+        moveTimeRangeFromAverage.put(1.0, 0);
+        moveTimeRangeFromAverage.put(2.0, 0);
+        moveTimeRangeFromAverage.put(3.0, 0);
+        moveTimeRangeFromAverage.put(5.0, 0);
+        moveTimeRangeFromAverage.put(10.0, 0);
+        moveTimeRangeFromAverage.put(Double.POSITIVE_INFINITY, 0);
+
+        return moveTimeRangeFromAverage;
+    }
+
     public void analyzeGames(String playerName, List<Game> games) {
+        TreeMap<Double, Integer> moveTimeRangeFromAverage = getMoveTimeRangeFromAverageMap();
         for (Game game : games) {
             List<Double> clockTimesInSeconds = getClockTimesFromPgnString(playerName, game);
+
+            double increment = game.getIncrement();
+            List<Double> moveTimes = new ArrayList<>();
+            for (int i = 1; i < clockTimesInSeconds.size(); i++) {
+                moveTimes.add(clockTimesInSeconds.get(i-1) - clockTimesInSeconds.get(i) + increment);
+            }
+            double averageMoveTime = moveTimes.stream().mapToDouble(a-> a).average().orElse(0.0);
+
+            for (Double moveTime : moveTimes) {
+                Double key = moveTimeRangeFromAverage.ceilingKey(Math.abs(averageMoveTime - moveTime));
+                moveTimeRangeFromAverage.put(key, moveTimeRangeFromAverage.get(key) + 1);
+            }
         }
+
+        List<Integer> test = new ArrayList<>();
+        test.add(4);
     }
 
     /**
@@ -62,12 +94,10 @@ public class GameAnalysisService {
      */
     private double convertClockStringToSeconds(String clockTime) {
         double seconds = 0;
-        seconds += 3600 * Character.getNumericValue(clockTime.charAt(0));
-        seconds += 60 * Integer.parseInt(clockTime.substring(2, 4));
-        seconds += Integer.parseInt(clockTime.substring(5, 7));
-        if (clockTime.length() > 8) {
-            seconds += 0.1 * Character.getNumericValue(clockTime.charAt(8));
-        }
+        String[] clockTokens = clockTime.split(":");
+        seconds += 3600 * Integer.parseInt(clockTokens[0]);
+        seconds += 60 * Integer.parseInt(clockTokens[1]);
+        seconds += Double.parseDouble(clockTokens[2]);
         return seconds;
     }
 }

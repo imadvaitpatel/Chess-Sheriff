@@ -72,16 +72,28 @@ public class Game {
         }
     }
 
-    public Integer getBaseTimeInSeconds() {
+    public Double getBaseTimeInSeconds() {
         String[] timeControl = this.time_control.split("\\+");
-        return Integer.parseInt(timeControl[0]);
+        if (timeControl[0].contains("/")) {
+            String[] rat = timeControl[0].split("/");
+            return Double.parseDouble(rat[0]) / Double.parseDouble(rat[1]);
+        }
+        else {
+            return Double.parseDouble(timeControl[0]);
+        }
     }
 
-    public Integer getIncrement() {
+    public Double getIncrement() {
         String[] timeControl = this.time_control.split("\\+");
         if (timeControl.length == 1) {
-            return 0;
+            return 0.0;
         }
-        return Integer.parseInt(timeControl[1]);
+        if (timeControl[1].contains("/")) {
+            String[] rat = timeControl[1].split("/");
+            return Double.parseDouble(rat[1]) / Double.parseDouble(rat[1]);
+        }
+        else {
+            return Double.parseDouble(timeControl[1]);
+        }
     }
 }
