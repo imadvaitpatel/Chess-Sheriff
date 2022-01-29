@@ -1,7 +1,10 @@
 package com.advait.chessdumbcheater.services;
 
 import com.advait.chessdumbcheater.models.Game;
+import com.advait.chessdumbcheater.models.GameSetStats;
+import com.advait.chessdumbcheater.models.PlayerStatsDTO;
 import org.springframework.stereotype.Service;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -11,25 +14,51 @@ import java.util.regex.Pattern;
 @Service
 public class GameAnalysisService {
 
-    public TreeMap<Double, Integer> getMoveTimeRangeFromAverageMap() {
-        // This map keeps track of number of moves within a range of seconds from the average move time of a game
-        // Keys are mapped to the upper bound of the range
-        TreeMap<Double, Integer> moveTimeRangeFromAverage = new TreeMap<>();
+    public PlayerStatsDTO analyzeGames(String playerName, List<Game> games) {
+        HashMap<String, GameSetStats> gamesByTimeControl = new HashMap<>();
 
-        moveTimeRangeFromAverage.put(0.5, 0);
-        moveTimeRangeFromAverage.put(1.0, 0);
-        moveTimeRangeFromAverage.put(2.0, 0);
-        moveTimeRangeFromAverage.put(3.0, 0);
-        moveTimeRangeFromAverage.put(5.0, 0);
-        moveTimeRangeFromAverage.put(10.0, 0);
-        moveTimeRangeFromAverage.put(Double.POSITIVE_INFINITY, 0);
+        double overAllScore = 0.0;
+        double lowestCapsScoreAllTCs = Double.POSITIVE_INFINITY;
+        double highestCapsScoreAllTCs = Double.NEGATIVE_INFINITY;
+        double totalCapsScoreAllTCs = 0.0;
+        int totalCapsGamesAllTCs = 0;
 
-        return moveTimeRangeFromAverage;
-    }
-
-    public void analyzeGames(String playerName, List<Game> games) {
-        TreeMap<Double, Integer> moveTimeRangeFromAverage = getMoveTimeRangeFromAverageMap();
         for (Game game : games) {
+            boolean isWhite = game.getWhite().getUsername().equalsIgnoreCase(playerName);
+            if (!gamesByTimeControl.containsKey(game.getTime_control())) {
+                GameSetStats gameSetStats = new GameSetStats();
+                gamesByTimeControl.put(game.getTime_control(), gameSetStats);
+            }
+
+            GameSetStats gameSetStats = gamesByTimeControl.get(game.getTime_control());
+
+            int totalGames = gameSetStats.getNumGames() + 1;
+
+            double score = Double.NaN;
+            if (isWhite) {
+                score = getResultScore(game.getWhite().getResult());
+            }
+            else {
+                score = getResultScore(game.getBlack().getResult());
+            }
+            overAllScore += score;
+
+            double capsScore = Double.NaN;
+            if (game.getAccuracies() != null) {
+                if (isWhite) {
+                    capsScore = game.getAccuracies().getWhite();
+                }
+                else {
+                    capsScore = game.getAccuracies().getBlack();
+                }
+                totalCapsGamesAllTCs += 1;
+                totalCapsScoreAllTCs += capsScore;
+                lowestCapsScoreAllTCs = Math.min(lowestCapsScoreAllTCs, capsScore);
+                highestCapsScoreAllTCs = Math.max(highestCapsScoreAllTCs, capsScore);
+            }
+
+            // analyze move times
+            TreeMap<Double, Integer> moveTimeRangeFromAverage = gameSetStats.getMoveTimeRangeFromAverage();
             List<Double> clockTimesInSeconds = getClockTimesFromPgnString(playerName, game);
 
             double increment = game.getIncrement();
@@ -43,10 +72,24 @@ public class GameAnalysisService {
                 Double key = moveTimeRangeFromAverage.ceilingKey(Math.abs(averageMoveTime - moveTime));
                 moveTimeRangeFromAverage.put(key, moveTimeRangeFromAverage.get(key) + 1);
             }
+
+            // update other stats
+            gameSetStats.setNumGames(totalGames);
+            gameSetStats.setTotalScore(gameSetStats.getTotalScore() + score);
+            gameSetStats.getCapsScores().add(capsScore);
+            gameSetStats.getAverageMoveTimeGameList().add(averageMoveTime);
         }
 
-        List<Integer> test = new ArrayList<>();
-        test.add(4);
+        PlayerStatsDTO playerStats = new PlayerStatsDTO();
+        playerStats.setTotalGames(games.size());
+        playerStats.setOverallScore(overAllScore);
+        playerStats.setTotalCapsGames(totalCapsGamesAllTCs);
+        playerStats.setOverallAverageCapsScore(totalCapsScoreAllTCs / totalCapsGamesAllTCs);
+        playerStats.setGameByTimeControlStats(gamesByTimeControl);
+        playerStats.setOverallLowestCapsScore(lowestCapsScoreAllTCs == Double.POSITIVE_INFINITY ? Double.NaN : lowestCapsScoreAllTCs);
+        playerStats.setOverallHighestCapsScore(highestCapsScoreAllTCs == Double.NEGATIVE_INFINITY ? Double.NaN : highestCapsScoreAllTCs);
+
+        return playerStats;
     }
 
     /**
@@ -99,5 +142,30 @@ public class GameAnalysisService {
         seconds += 60 * Integer.parseInt(clockTokens[1]);
         seconds += Double.parseDouble(clockTokens[2]);
         return seconds;
+    }
+
+    private double getResultScore(String result) {
+        switch (result.toLowerCase()) {
+            case "win":
+                return 1.0;
+            case "stalemate":
+            case "repetition":
+            case "insufficient":
+            case "agreed":
+            case "50move":
+            case "timevsinsufficient":
+                return 0.5;
+            case "checkmated":
+            case "timeout":
+            case "resigned":
+            case "lose":
+            case "abandoned":
+            case "kingofthehill":
+            case "threecheck":
+            case "bughousepartnerlose":
+                return 0.0;
+            default:
+                throw new NotImplementedException();
+        }
     }
 }

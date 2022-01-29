@@ -1,22 +1,22 @@
 package com.advait.chessdumbcheater.models;
 
 public class GameAccuracy {
-    private float white;
-    private float black;
+    private double white;
+    private double black;
 
-    public float getWhite() {
+    public double getWhite() {
         return white;
     }
 
-    public void setWhite(float white) {
+    public void setWhite(double white) {
         this.white = white;
     }
 
-    public float getBlack() {
+    public double getBlack() {
         return black;
     }
 
-    public void setBlack(float black) {
+    public void setBlack(double black) {
         this.black = black;
     }
 }

@@ -1,13 +1,13 @@
 package com.advait.chessdumbcheater.controllers;
 
 import com.advait.chessdumbcheater.models.Game;
+import com.advait.chessdumbcheater.models.PlayerStatsDTO;
 import com.advait.chessdumbcheater.services.GameRetrieverService;
 import com.advait.chessdumbcheater.services.GameAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin
@@ -24,10 +24,8 @@ public class StatsController {
     }
 
     @GetMapping("/stats/{playerName}")
-    public ResponseEntity<List<String>> getPlayerStats(@PathVariable String playerName, @RequestParam("pastMonths") int pastMonths) {
+    public ResponseEntity<PlayerStatsDTO> getPlayerStats(@PathVariable String playerName, @RequestParam("pastMonths") int pastMonths) {
         List<Game> games =  gameRetrieverService.getPlayerGames(playerName, pastMonths);
-        gameAnalysisService.analyzeGames(playerName, games);
-
-        return ResponseEntity.ok(Arrays.asList("hi"));
+        return ResponseEntity.ok(gameAnalysisService.analyzeGames(playerName, games));
     }
 }

@@ -4,17 +4,77 @@ import java.util.HashMap;
 
 public class PlayerStatsDTO {
     private int totalGames;
-    private double overallWinRate;
-    private double lowestCapsScore;
-    private double highestCapsScore;
-    private double totalAverageCapScore;
+    private double overallScore;
+    private double overallLowestCapsScore;
+    private double overallHighestCapsScore;
+    private double overallAverageCapsScore;
     private int totalCapsGames;
-    private HashMap<String, GameSetStat> gameByTimeControlStats;
+    private HashMap<String, GameSetStats> gamesByTimeControlStats;
 
-    class GameSetStat {
-        private int numGames;
-        private double winRate;
-        private double averageCapScore;
-        private int numCapsGames;
+    public PlayerStatsDTO()
+    {
+        totalGames = 0;
+        overallScore = 0.0;
+        overallLowestCapsScore = Double.NaN;
+        overallHighestCapsScore = Double.NaN;
+        overallAverageCapsScore = Double.NaN;
+        totalCapsGames = 0;
+        gamesByTimeControlStats = new HashMap<>();
+    }
+
+    public int getTotalGames() {
+        return totalGames;
+    }
+
+    public void setTotalGames(int totalGames) {
+        this.totalGames = totalGames;
+    }
+
+    public double getOverallScore() {
+        return overallScore;
+    }
+
+    public void setOverallScore(double overallScore) {
+        this.overallScore = overallScore;
+    }
+
+    public double getOverallLowestCapsScore() {
+        return overallLowestCapsScore;
+    }
+
+    public void setOverallLowestCapsScore(double overallLowestCapsScore) {
+        this.overallLowestCapsScore = overallLowestCapsScore;
+    }
+
+    public double getOverallHighestCapsScore() {
+        return overallHighestCapsScore;
+    }
+
+    public void setOverallHighestCapsScore(double overallHighestCapsScore) {
+        this.overallHighestCapsScore = overallHighestCapsScore;
+    }
+
+    public double getOverallAverageCapsScore() {
+        return overallAverageCapsScore;
+    }
+
+    public void setOverallAverageCapsScore(double overallAverageCapsScore) {
+        this.overallAverageCapsScore = overallAverageCapsScore;
+    }
+
+    public int getTotalCapsGames() {
+        return totalCapsGames;
+    }
+
+    public void setTotalCapsGames(int totalCapsGames) {
+        this.totalCapsGames = totalCapsGames;
+    }
+
+    public HashMap<String, GameSetStats> getGameByTimeControlStats() {
+        return gamesByTimeControlStats;
+    }
+
+    public void setGameByTimeControlStats(HashMap<String, GameSetStats> gameByTimeControlStats) {
+        this.gamesByTimeControlStats = gameByTimeControlStats;
     }
 }
