@@ -9,7 +9,7 @@ public class PlayerStatsDTO {
     private double overallHighestCapsScore;
     private double overallAverageCapsScore;
     private int totalCapsGames;
-    private HashMap<String, GameSetStats> gamesByTimeControlStats;
+    private HashMap<String, GameSetStats> gameStatsByTimeControl;
 
     public PlayerStatsDTO()
     {
@@ -19,7 +19,7 @@ public class PlayerStatsDTO {
         overallHighestCapsScore = Double.NaN;
         overallAverageCapsScore = Double.NaN;
         totalCapsGames = 0;
-        gamesByTimeControlStats = new HashMap<>();
+        gameStatsByTimeControl = new HashMap<>();
     }
 
     public int getTotalGames() {
@@ -70,11 +70,11 @@ public class PlayerStatsDTO {
         this.totalCapsGames = totalCapsGames;
     }
 
-    public HashMap<String, GameSetStats> getGameByTimeControlStats() {
-        return gamesByTimeControlStats;
+    public HashMap<String, GameSetStats> getGameStatsByTimeControl() {
+        return gameStatsByTimeControl;
     }
 
-    public void setGameByTimeControlStats(HashMap<String, GameSetStats> gameByTimeControlStats) {
-        this.gamesByTimeControlStats = gameByTimeControlStats;
+    public void setGameStatsByTimeControl(HashMap<String, GameSetStats> gameStatsByTimeControl) {
+        this.gameStatsByTimeControl = gameStatsByTimeControl;
     }
 }

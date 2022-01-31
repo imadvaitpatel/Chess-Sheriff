@@ -85,7 +85,7 @@ public class GameAnalysisService {
         playerStats.setOverallScore(overAllScore);
         playerStats.setTotalCapsGames(totalCapsGamesAllTCs);
         playerStats.setOverallAverageCapsScore(totalCapsScoreAllTCs / totalCapsGamesAllTCs);
-        playerStats.setGameByTimeControlStats(gamesByTimeControl);
+        playerStats.setGameStatsByTimeControl(gamesByTimeControl);
         playerStats.setOverallLowestCapsScore(lowestCapsScoreAllTCs == Double.POSITIVE_INFINITY ? Double.NaN : lowestCapsScoreAllTCs);
         playerStats.setOverallHighestCapsScore(highestCapsScoreAllTCs == Double.NEGATIVE_INFINITY ? Double.NaN : highestCapsScoreAllTCs);
 
