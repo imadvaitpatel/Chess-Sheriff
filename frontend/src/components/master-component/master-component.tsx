@@ -1,5 +1,7 @@
 import React from 'react';
 import '../../css/master-component.css';
+import { CheatReport } from '../cheat-report/cheat-report';
+import { PlayerStats } from '../models/player-stats';
 import { SearchBarContainer } from '../search-bar/search-bar-container';
 
 type MasterComponentState = {
@@ -7,6 +9,7 @@ type MasterComponentState = {
   currentUsername: string;
   selectedPastNumMonths: number;
   showUserErrorMessage: boolean;
+  playerStats: PlayerStats | undefined;
 }
 
 export class MasterComponent extends React.Component<{}, MasterComponentState> {
@@ -17,7 +20,8 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
       isCreatingReport: false,
       currentUsername: '',
       selectedPastNumMonths: 1,
-      showUserErrorMessage: false
+      showUserErrorMessage: false,
+      playerStats: undefined
     }
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.updateUsername = this.updateUsername.bind(this);
@@ -26,7 +30,7 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
 
   render() {
     return (
-      <div>
+      <>
         <div className='intro-text'>
           Did you just lose a chess game and think your opponent is a cheater? Enter their chess.com username and a date range for their games
           to find out now!
@@ -42,16 +46,31 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
             ?<div className='user-error'>User "{this.state.currentUsername}" does not exist</div>
             : null
           }
-      </div>
+          {this.state.playerStats !== undefined
+            ? <CheatReport playerStats={this.state.playerStats}/>
+            : null
+          }
+      </>
     );
   }
 
   private async handleSearchClick() {
+
     const response = await fetch(`http://localhost:8080/stats/${this.state.currentUsername}?pastMonths=${this.state.selectedPastNumMonths}`);
-    const data = await response.json();
-    // rework after moving some more logic to backend later
-    // fix error code problem later
     
+    if (response.status === 500) {
+      this.setState({
+        showUserErrorMessage: true,
+        playerStats: undefined
+      });
+    }
+    else {
+      const data: PlayerStats = await response.json();
+
+      this.setState({
+          playerStats: data
+        });
+    } 
   }
 
   private updateUsername(newUsername: string): void {
@@ -63,7 +82,8 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
 
   private updateDateRange(newDateRange: string): void {
     this.setState({
-      selectedPastNumMonths: Number(newDateRange)
+      selectedPastNumMonths: Number(newDateRange),
+      showUserErrorMessage: false
     });
   }
 }

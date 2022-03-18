@@ -29,7 +29,7 @@ export class SearchBarContainer extends React.Component<SearchBarContainerProps,
             onUpdate={this.updateSearchValue}
           />
           <SearchButton 
-            isCreatingReport={this.props.isCreatingReport}
+            isDisabled={this.props.isCreatingReport || this.props.searchValue === ''}
             onClick={this.props.handleSearchClick}
           />
            <DateDropdown
