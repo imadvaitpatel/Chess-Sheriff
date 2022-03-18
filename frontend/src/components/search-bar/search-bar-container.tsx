@@ -22,7 +22,6 @@ export class SearchBarContainer extends React.Component<SearchBarContainerProps,
   render() {
     return (
       <>
-        <img className='stockfish-img' src='stockfish.png' alt='stockfish.png'/>
         <div className='search-bar-container'>
           <SearchBar
             value={this.props.searchValue}

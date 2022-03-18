@@ -6,12 +6,3 @@
   min-width: 300px;
   max-width: 600px;
 }
-
-.stockfish-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
-  height: 80px;
-  width: 80px;
-}
