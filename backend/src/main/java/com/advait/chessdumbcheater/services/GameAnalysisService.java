@@ -24,6 +24,11 @@ public class GameAnalysisService {
         int totalCapsGamesAllTCs = 0;
 
         for (Game game : games) {
+            // only chess and chess960 is currently supported
+            if (!game.getRules().equalsIgnoreCase("chess") && !game.getRules().equalsIgnoreCase("chess960"))
+            {
+                continue;
+            }
             boolean isWhite = game.getWhite().getUsername().equalsIgnoreCase(playerName);
             if (!gamesByTimeControl.containsKey(game.getTime_control())) {
                 GameSetStats gameSetStats = new GameSetStats();
