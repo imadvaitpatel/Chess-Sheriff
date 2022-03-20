@@ -1,7 +1,8 @@
 export interface PlayerStats {
   totalGames: number
   overallScore: number
-  overallLowestCapsSCore: number
+  overallLowestCapsScore: number
+  overallAverageCapsScore: number
   overallHighestCapsScore: number
   totalCapsGames: number
   gameStatsByTimeControl: TimeControlToGameSetStats

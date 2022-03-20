@@ -4,7 +4,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(37, 36, 36);
+  background-color: #efefef;
+  font-family: 'Century Gothic';
 }
 
 code {
@@ -13,5 +14,5 @@ code {
 }
 
 .intro-text {
-  color: white;
+  color: '#a9a9a9';
 }

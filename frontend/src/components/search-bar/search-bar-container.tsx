@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/search-bar-container.css';
-import { DateDropdown } from '../date-dropdown/date-dropdown';
+import { DateDropdown } from './date-dropdown';
 import { SearchBar } from './search-bar';
 import { SearchButton } from './search-button';
 

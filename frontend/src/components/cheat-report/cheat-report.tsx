@@ -1,26 +1,8 @@
 import React from 'react';
-import { MoveTimeFromAverageCount, PlayerStats, TimeControlToGameSetStats } from '../models/player-stats';
-import { Bar } from 'react-chartjs-2';
+import { PlayerStats } from '../../models/player-stats';
 import '../../css/cheat-report.css';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 import { StatsChart } from './stats-chart';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import { OverallStats } from './overall-stats';
 
 type CheatReportProps = {
   playerStats: PlayerStats
@@ -51,25 +33,36 @@ export class CheatReport extends React.Component<CheatReportProps, CheatReportSt
       );
     }
 
-    else if (this.state.selectedTimeControl === undefined) {
-      return ( //TODO: add selection for time control
-        <>
-  
-        </>
-      );
-    }
-
     return (
-        <StatsChart
+      <div className='stats-container'>
+        <OverallStats
           playerStats={playerStats}
-          timeControl={this.state.selectedTimeControl}
         />
-        // TODO: make this look better later and use options maybe
+
+        <div className='time-control-dropdown'>
+          <label htmlFor='time-control-dropdown'>Time Control:&emsp;</label>
+          <select defaultValue='DEFAULT' onChange={e => this.setSelectedTimeControl(e.target.value)}>
+            <option hidden disabled value={'DEFAULT'}> -- select an option -- </option>
+            {Object.keys(playerStats.gameStatsByTimeControl).map((timeControl, index) => {
+              return <option value={timeControl} key={index}>{timeControl}</option>
+            })}
+          </select>
+      </div>
+
+      
+      {this.state.selectedTimeControl !== undefined 
+            ? <StatsChart
+              playerStats={playerStats}
+              timeControl={this.state.selectedTimeControl} />
+            : null}
+      </div>
     );
   }
 
-  private getTimeControls = (): string[] => {
-    return Object.keys(this.props.playerStats.gameStatsByTimeControl);
+  private setSelectedTimeControl = (timeControl : string): void => {
+    this.setState({
+      selectedTimeControl: timeControl
+    });
   }
 
 }

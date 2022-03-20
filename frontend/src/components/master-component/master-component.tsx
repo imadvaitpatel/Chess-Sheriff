@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../css/master-component.css';
 import { CheatReport } from '../cheat-report/cheat-report';
-import { PlayerStats } from '../models/player-stats';
+import { PlayerStats } from '../../models/player-stats';
 import { SearchBarContainer } from '../search-bar/search-bar-container';
 
 type MasterComponentState = {
