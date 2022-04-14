@@ -57,6 +57,9 @@ export class CheatReport extends React.Component<CheatReportProps, CheatReportSt
             : null}
       </div>
     );
+
+    // TODO: add avg move time so its obvious what the data in the chart is for 
+    // TODO: when a new user is searched for, reset state and add loading indicator
   }
 
   private setSelectedTimeControl = (timeControl : string): void => {

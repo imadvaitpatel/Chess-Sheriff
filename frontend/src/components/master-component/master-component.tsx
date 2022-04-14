@@ -5,7 +5,7 @@ import { PlayerStats } from '../../models/player-stats';
 import { SearchBarContainer } from '../search-bar/search-bar-container';
 
 type MasterComponentState = {
-  isCreatingReport: boolean;
+  isLoading: boolean;
   currentUsername: string;
   selectedPastNumMonths: number;
   showUserErrorMessage: boolean;
@@ -17,7 +17,7 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isCreatingReport: false,
+      isLoading: false,
       currentUsername: '',
       selectedPastNumMonths: 1,
       showUserErrorMessage: false,
@@ -37,13 +37,17 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
         </div>
         <SearchBarContainer 
           searchValue={this.state.currentUsername}
-          isCreatingReport={this.state.isCreatingReport}
+          isCreatingReport={this.state.isLoading}
           onSearchBarUpdate={this.updateUsername}
           onDateDropdownUpdate={this.updateDateRange}
           handleSearchClick={this.handleSearchClick}
           />
           {this.state.showUserErrorMessage 
             ?<div className='user-error'>User "{this.state.currentUsername}" does not exist</div>
+            : null
+          }
+          {this.state.isLoading 
+            ? <div className="loader"></div>
             : null
           }
           {this.state.playerStats !== undefined
@@ -56,8 +60,17 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
 
   private async handleSearchClick() {
 
+    this.setState({
+      isLoading: true,
+      playerStats: undefined
+    });
+
     const response = await fetch(`http://localhost:8080/stats/${this.state.currentUsername}?pastMonths=${this.state.selectedPastNumMonths}`);
     
+    this.setState({
+      isLoading: false
+    });
+
     if (response.status === 500) {
       this.setState({
         showUserErrorMessage: true,
