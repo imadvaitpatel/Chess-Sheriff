@@ -52,7 +52,6 @@ public class GameRetrieverService {
         if (playerArchivesDTO != null) {
             playerArchivesDTO.setArchives(filterArchivesInPastTimePeriod(playerArchivesDTO.getArchives(), pastMonths));
         }
-        System.out.println(playerArchivesDTO);
         return playerArchivesDTO;
     }
 
