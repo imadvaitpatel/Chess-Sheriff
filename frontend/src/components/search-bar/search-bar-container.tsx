@@ -1,8 +1,9 @@
 import React from 'react';
 import '../../css/search-bar-container.css';
 import { DateDropdown } from './date-dropdown';
-import { SearchBar } from './search-bar';
 import { SearchButton } from './search-button';
+
+const SEARCHBAR_MAX_CHARACTERS = 20;
 
 type SearchBarContainerProps = {
   onSearchBarUpdate: (value: string) => void;
@@ -23,14 +24,19 @@ export class SearchBarContainer extends React.Component<SearchBarContainerProps,
     return (
       <>
         <div className='search-bar-container'>
-          <SearchBar
-            value={this.props.searchValue}
-            onUpdate={this.updateSearchValue}
-          />
-          <SearchButton 
+          <div className='searchBox'>
+            <input 
+              className='searchInput' 
+              value={this.props.searchValue} 
+              onChange={this.updateSearchValue} 
+              placeholder='Enter username' 
+              maxLength={SEARCHBAR_MAX_CHARACTERS}
+            />
+            <SearchButton 
             isDisabled={this.props.isCreatingReport || this.props.searchValue === ''}
             onClick={this.props.handleSearchClick}
-          />
+            />
+          </div>
            <DateDropdown
             onChange={this.props.onDateDropdownUpdate}
            />
