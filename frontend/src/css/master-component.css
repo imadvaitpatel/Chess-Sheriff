@@ -5,7 +5,8 @@
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
+  border: 16px solid #f3f3f3;
+  /* Light grey */
   border-top: 16px solid lightblue;
   border-bottom: 16px solid lightblue;
   border-radius: 50%;
@@ -18,6 +19,16 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
+.intro-section {
+  border: 2px solid white;
+  padding: 1% 1% 1% 1%;
+}
+
+/*# sourceMappingURL=master-component.css.map */

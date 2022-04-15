@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/index.css';
 import{ MasterComponent } from './components/master-component/master-component';
 import reportWebVitals from './reportWebVitals';
 
