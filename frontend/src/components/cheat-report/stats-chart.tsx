@@ -42,6 +42,8 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
                   enabled: false
                 },
                 legend: {
+                  // do nothing on click
+                  onClick: function(event, legendItem) {},
                   labels: {
                     color: 'white'
                   }
