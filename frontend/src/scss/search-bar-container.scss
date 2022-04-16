@@ -10,39 +10,39 @@
   justify-content: center;
 }
 
-.searchBox {
+.search-box {
   position: relative;
-  background: #2f3640;
+  background: utilities.$primary-color;
   height: 40px;
   border-radius: 40px;
   padding: 10px;
 
 }
 
-.searchBox:hover > .searchInput {
+.search-box:hover > .search-input {
   width: 240px;
   padding: 0 6px;
 }
 
-.searchBox:hover > .searchButton {
+.search-box:hover > .search-button {
 background: white;
-color : #2f3640;
+color : utilities.$secondary-color;
 }
 
-.searchButton {
+.search-button {
   color: white;
   float: right;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #2f3640;
+  background: utilities.$primary-color;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.4s;
 }
 
-.searchInput {
+.search-input {
   border:none;
   background: none;
   outline:none;
@@ -56,7 +56,7 @@ color : #2f3640;
 }
 
 @media screen and (max-width: 620px) {
-.searchBox:hover > .searchInput {
+.search-box:hover > .search-input {
   width: 150px;
   padding: 0 6px;
   }

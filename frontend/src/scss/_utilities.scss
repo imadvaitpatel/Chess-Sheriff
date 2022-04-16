@@ -1,1 +1,14 @@
-$main-color: #1c1109;
+$background-color: #2b6777;
+$primary-color: #52ab98;
+$secondary-color: #FF9970;
+$font-color: white;
+$dropdown-color: $primary-color;
+
+@mixin dropdown{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: $font-color;
+  border-radius: 8px;
+  background-color: $dropdown-color;
+}

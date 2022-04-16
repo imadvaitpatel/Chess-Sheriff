@@ -36,9 +36,15 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
                 title: {
                   display: true,
                   text: 'Stats by Time Control',
+                  color: '#fff',
                 },
                 tooltip: {
-                  enabled: true
+                  enabled: false
+                },
+                legend: {
+                  labels: {
+                    color: 'white'
+                  }
                 }
               },
               responsive: true,
@@ -50,13 +56,23 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
                 x: {
                   stacked: true,
                   ticks: {
-                    color: '#484f4f',
+                    color: '#fff',
+                  },
+                  title: {
+                    text: 'Time from average move time',
+                    color: '#fff',
+                    display: true
                   }
                 },
                 y: {
                   stacked: true,
                   ticks: {
-                    color: '#484f4f',
+                    color: '#fff',
+                  },
+                  title: {
+                    text: 'Number of moves',
+                    color: '#fff',
+                    display: true
                   }
                 },
               },
@@ -76,7 +92,7 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
         labels: Object.keys(averageMoveTimeRanges),
         datasets: [
           {
-            label: 'Time control',
+            label: 'Number of moves made within the average move time',
             data: Object.values(averageMoveTimeRanges),
             backgroundColor: '#563f46'
           }

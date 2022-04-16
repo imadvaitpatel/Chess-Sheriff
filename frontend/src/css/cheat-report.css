@@ -12,4 +12,13 @@
   margin-top: 10px;
 }
 
+.time-control-select {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: white;
+  border-radius: 8px;
+  background-color: #52ab98;
+}
+
 /*# sourceMappingURL=cheat-report.css.map */

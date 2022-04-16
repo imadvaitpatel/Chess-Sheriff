@@ -1,6 +1,12 @@
 .date-dropdown {
   margin-left: 10px;
   outline: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: white;
+  border-radius: 8px;
+  background-color: #52ab98;
 }
 
 /*# sourceMappingURL=date-dropdown.css.map */

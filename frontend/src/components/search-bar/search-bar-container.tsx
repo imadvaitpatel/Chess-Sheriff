@@ -24,9 +24,9 @@ export class SearchBarContainer extends React.Component<SearchBarContainerProps,
     return (
       <>
         <div className='search-bar-container'>
-          <div className='searchBox'>
+          <div className='search-box'>
             <input 
-              className='searchInput' 
+              className='search-input' 
               value={this.props.searchValue} 
               onChange={this.updateSearchValue} 
               placeholder='Enter username' 

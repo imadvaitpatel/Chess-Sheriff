@@ -40,8 +40,8 @@ export class CheatReport extends React.Component<CheatReportProps, CheatReportSt
         />
 
         <div className='time-control-dropdown'>
-          <label htmlFor='time-control-dropdown'>Time Control:&emsp;</label>
-          <select defaultValue='DEFAULT' onChange={e => this.setSelectedTimeControl(e.target.value)}>
+          <label htmlFor='time-control-dropdown'>Time Control (in seconds) :&emsp;</label>
+          <select className='time-control-select' defaultValue='DEFAULT' onChange={e => this.setSelectedTimeControl(e.target.value)}>
             <option hidden disabled value={'DEFAULT'}> -- select an option -- </option>
             {Object.keys(playerStats.gameStatsByTimeControl).map((timeControl, index) => {
               return <option value={timeControl} key={index}>{timeControl}</option>
