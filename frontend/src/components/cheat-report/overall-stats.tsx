@@ -20,19 +20,19 @@ export class OverallStats extends React.Component<OverallStatsProps, {}> {
             Total Games: {playerStats.totalGames}
           </div>
           <div>
-            Win Rate: {100 * playerStats.overallScore / playerStats.totalGames}%
+            Win Rate: {(100 * playerStats.overallScore / playerStats.totalGames).toFixed(2)}%
           </div>
           <div>
             CAPS Games: {playerStats.totalCapsGames}
           </div>
           <div>
-            Average CAPS Score: {playerStats.overallAverageCapsScore}
+            Average CAPS Score: {playerStats.overallAverageCapsScore.toFixed(2)}
           </div>
           <div>
-            Lowest CAPS Score: {playerStats.overallLowestCapsScore}
+            Lowest CAPS Score: {playerStats.overallLowestCapsScore.toFixed(2)}
           </div>
           <div>
-            Highest CAPS Score: {playerStats.overallHighestCapsScore}
+            Highest CAPS Score: {playerStats.overallHighestCapsScore.toFixed(2)}
           </div>
       </div>
     </div>

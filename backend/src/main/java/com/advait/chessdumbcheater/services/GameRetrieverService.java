@@ -45,7 +45,7 @@ public class GameRetrieverService {
         ArchivesDTO playerArchivesDTO = this.webClientBuilder
                 .build()
                 .get()
-                .uri("https://api.chess.com/pub/player/" + playerName + "/games/archives")
+                .uri("https://api.chess.com/pub/player/" + playerName.toLowerCase() + "/games/archives")
                 .retrieve()
                 .bodyToMono(ArchivesDTO.class)
                 .block();
