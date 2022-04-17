@@ -58,8 +58,12 @@ public class GameAnalysisService {
                 }
                 totalCapsGamesAllTCs += 1;
                 totalCapsScoreAllTCs += capsScore;
-                lowestCapsScoreAllTCs = Math.min(lowestCapsScoreAllTCs, capsScore);
                 highestCapsScoreAllTCs = Math.max(highestCapsScoreAllTCs, capsScore);
+
+                if (capsScore != 0)
+                {
+                    lowestCapsScoreAllTCs = Math.min(lowestCapsScoreAllTCs, capsScore);
+                }
             }
 
             // analyze move times
