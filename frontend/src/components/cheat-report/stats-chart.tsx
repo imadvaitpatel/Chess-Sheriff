@@ -92,9 +92,27 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
     const { playerStats, timeControl } = this.props;
 
     const averageMoveTimeRanges: MoveTimeFromAverageCount = playerStats.gameStatsByTimeControl[timeControl].moveTimeRangeFromAverage;
+    const timeControlLabels: string[] = Object.keys(averageMoveTimeRanges);
+
+    if (timeControlLabels.indexOf('Infinity') !== -1)
+    {
+      const maxTimeControl: string = timeControlLabels.reduce((a, b) => {
+        if (isNaN(parseInt(a)))
+        {
+          return b;
+        }
+        if (isNaN(parseInt(b)))
+        {
+          return a;
+        }
+        return parseInt(a) > parseInt(b) ? a : b;
+      });
+
+      timeControlLabels[timeControlLabels.indexOf('Infinity')] = maxTimeControl.concat('+');
+    }
 
     const data = {
-        labels: Object.keys(averageMoveTimeRanges),
+        labels: timeControlLabels,
         datasets: [
           {
             label: 'Number of moves made within the average move time',
@@ -105,7 +123,6 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
         ]
     };
         
-    console.log(data);
     return data;
   }
 }
