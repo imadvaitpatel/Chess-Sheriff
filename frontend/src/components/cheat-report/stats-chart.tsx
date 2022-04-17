@@ -37,6 +37,9 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
                   display: true,
                   text: 'Stats by Time Control',
                   color: '#fff',
+                  font: {
+                    size: 18
+                  }
                 },
                 tooltip: {
                   enabled: false
@@ -96,7 +99,7 @@ export class StatsChart extends React.Component<StatsChartProps, {}> {
           {
             label: 'Number of moves made within the average move time',
             data: Object.values(averageMoveTimeRanges),
-            backgroundColor: '#563f46'
+            backgroundColor: '#ab5265'
           }
 
         ]
