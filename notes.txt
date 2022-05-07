@@ -1,6 +1,0 @@
-Features TODO:
-1) Add raw move time, not just average time for the chart.
-2) Add loading screen to wait for API call.
-3) Consider adding more chart stuff.
-4) Consider getting # of best moves from CAPS games (if this is a thing).
-5) Consider adding links to game for lowest score
