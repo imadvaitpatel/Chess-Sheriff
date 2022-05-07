@@ -1,9 +1,9 @@
-package com.advait.chessdumbcheater.controllers;
+package com.advait.chesscheatstats.controllers;
 
-import com.advait.chessdumbcheater.models.Game;
-import com.advait.chessdumbcheater.models.PlayerStatsDTO;
-import com.advait.chessdumbcheater.services.GameRetrieverService;
-import com.advait.chessdumbcheater.services.GameAnalysisService;
+import com.advait.chesscheatstats.models.Game;
+import com.advait.chesscheatstats.models.PlayerStatsDTO;
+import com.advait.chesscheatstats.services.GameRetrieverService;
+import com.advait.chesscheatstats.services.GameAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

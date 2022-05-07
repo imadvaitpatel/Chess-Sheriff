@@ -1,4 +1,4 @@
-package com.advait.chessdumbcheater.models;
+package com.advait.chesscheatstats.models;
 
 public class GameAccuracy {
     private double white;

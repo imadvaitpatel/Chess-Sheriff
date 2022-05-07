@@ -1,4 +1,4 @@
-package com.advait.chessdumbcheater;
+package com.advait.chesscheatstats;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
-public class ChessDumbCheaterApplication {
+public class ChessCheatStatsApplication {
 
     @Bean
     public WebClient.Builder getWebClientBuilder() {
@@ -19,7 +19,7 @@ public class ChessDumbCheaterApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ChessDumbCheaterApplication.class, args);
+        SpringApplication.run(ChessCheatStatsApplication.class, args);
     }
 
 

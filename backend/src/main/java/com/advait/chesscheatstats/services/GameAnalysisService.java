@@ -1,8 +1,8 @@
-package com.advait.chessdumbcheater.services;
+package com.advait.chesscheatstats.services;
 
-import com.advait.chessdumbcheater.models.Game;
-import com.advait.chessdumbcheater.models.GameSetStats;
-import com.advait.chessdumbcheater.models.PlayerStatsDTO;
+import com.advait.chesscheatstats.models.Game;
+import com.advait.chesscheatstats.models.GameSetStats;
+import com.advait.chesscheatstats.models.PlayerStatsDTO;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

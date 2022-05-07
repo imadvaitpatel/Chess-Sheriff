@@ -1,8 +1,8 @@
-package com.advait.chessdumbcheater.services;
+package com.advait.chesscheatstats.services;
 
-import com.advait.chessdumbcheater.models.ArchivesDTO;
-import com.advait.chessdumbcheater.models.Game;
-import com.advait.chessdumbcheater.models.GamesDTO;
+import com.advait.chesscheatstats.models.ArchivesDTO;
+import com.advait.chesscheatstats.models.Game;
+import com.advait.chesscheatstats.models.GamesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

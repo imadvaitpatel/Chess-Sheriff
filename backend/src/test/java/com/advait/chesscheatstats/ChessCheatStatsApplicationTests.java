@@ -1,10 +1,10 @@
-package com.advait.chessdumbcheater;
+package com.advait.chesscheatstats;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ChessDumbCheaterApplicationTests {
+class ChessCheatStatsApplicationTests {
 
     @Test
     void contextLoads() {
