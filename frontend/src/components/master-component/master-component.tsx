@@ -64,7 +64,7 @@ export class MasterComponent extends React.Component<{}, MasterComponentState> {
 		});
 
 		const response = await fetch(
-			`http://localhost:8080/stats/${this.state.currentUsername}?pastMonths=${this.state.selectedPastNumMonths}`
+			`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/stats/${this.state.currentUsername}?pastMonths=${this.state.selectedPastNumMonths}`
 		);
 
 		this.setState({
