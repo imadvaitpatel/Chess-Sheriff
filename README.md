@@ -1,5 +1,5 @@
 # Chess Sheriff
-Quickly find helpful statistics to determine if a chess.com user is cheating! Deployed on AWS [here](http://ec2-3-85-54-186.compute-1.amazonaws.com:3000/).
+Quickly find helpful statistics to determine if a chess.com user is cheating! Deployed on AWS [here](http://ec2-54-237-9-177.compute-1.amazonaws.com:3000/).
 
 # Demo
 https://user-images.githubusercontent.com/44343021/167313438-2119aaee-ba94-4d83-80e4-ea4e16091fbc.mp4
